@@ -10,13 +10,13 @@
   "host_network": true,
   "map": ["config:rw"],
   "schema": {
-    "dominio": "str",
-    "subdominio": "str",
-    "puerto" : "int"
+    "domain": "str",
+    "subdomain": "str",
+    "port" : "int"
   },
   "options": {
-    "dominio": "",
-    "subdominio": "",
-    "puerto": ""
+    "domain": "",
+    "subdomain": "",
+    "port": ""
   }
 }
