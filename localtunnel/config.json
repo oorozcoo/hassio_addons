@@ -12,13 +12,11 @@
   "schema": {
     "domain": "str",
     "subdomain": "str",
-    "port" : "int",
-    "secure": "str"
+    "port" : "int"
   },
   "options": {
     "domain": "",
     "subdomain": "",
-    "port": "",
-    "secure": "True"
+    "port": ""
   }
 }
