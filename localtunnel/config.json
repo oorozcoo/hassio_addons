@@ -13,10 +13,12 @@
     "domain": "str",
     "subdomain": "str",
     "port" : "int"
+    "secure": "str"
   },
   "options": {
     "domain": "",
     "subdomain": "",
     "port": ""
+    "secure": "True"
   }
 }
