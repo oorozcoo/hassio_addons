@@ -5,6 +5,7 @@ set -e
 CONFIG_PATH="/data/options.json"
 DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
 SUBDOMAIN=$(jq --raw-output ".subdomain" $CONFIG_PATH)
+PORT=$(jq --raw-output ".port" $CONFIG_PATH)
 
 echo "[INFO] Starting"
 echo "[INFO] Validating requirements"
