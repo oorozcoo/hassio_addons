@@ -5,7 +5,6 @@ set -e
 CONFIG_PATH="/data/options.json"
 DOMAIN=$(jq --raw-output ".domain" $CONFIG_PATH)
 SUBDOMAIN=$(jq --raw-output ".subdomain" $CONFIG_PATH)
-PORT=$(jq --raw-output ".port" $CONFIG_PATH)
 
 echo "[INFO] Starting"
 echo "[INFO] Validating requirements"
@@ -13,8 +12,8 @@ echo "[INFO] Validating requirements"
 #Valida si ya existe localtunnel
 if [ -d ../localtunnel/ ]; then
         echo "Starting tunnel..."
-        lt --host http://${DOMAIN}:${PORT} --subdomain=${SUBDOMAIN} --port ${PORT} &
-        TUNEL=`lt --host http://${DOMAIN}:${PORT} --subdomain=${SUBDOMAIN} --port ${PORT}`
+        lt --host http://${DOMAIN} --subdomain=${SUBDOMAIN} --port ${PORT} &
+        TUNEL=`lt --host http://${DOMAIN} --subdomain=${SUBDOMAIN} --port ${PORT}`
         echo $TUNEL
 else
 
@@ -28,7 +27,7 @@ echo "[INFO] Installing localtunnel"
 npm install -g localtunnel
 
 echo "[INFO] Starting tunnel"
-        lt --host http://${DOMAIN}:${PORT} --subdomain=${SUBDOMAIN} --port ${PORT} &
-        TUNEL=`lt --host http://${DOMAIN}:${PORT} --subdomain=${SUBDOMAIN} --port ${PORT}`
+        lt --host http://${DOMAIN} --subdomain=${SUBDOMAIN} --port ${PORT} &
+        TUNEL=`lt --host http://${DOMAIN} --subdomain=${SUBDOMAIN} --port ${PORT}`
         echo $TUNEL
 fi
