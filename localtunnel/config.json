@@ -11,10 +11,12 @@
   "map": ["config:rw"],
   "schema": {
     "domain": "str",
-    "subdomain": "str"
+    "subdomain": "str",
+    "port" : "int"
   },
   "options": {
     "domain": "",
-    "subdomain": ""
+    "subdomain": "",
+    "port": ""
   }
 }
