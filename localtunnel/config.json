@@ -1,0 +1,22 @@
+{
+  "name": "Localtunnel",
+  "version": "0.1-alfa",
+  "slug": "localtunnel",
+  "description": "Levanta un tunel de manera automatica para gestion remota",
+  "url": "https://github.com/oorozcoo/hassio_addons/localtunnel/",
+  "arch": ["armv7", "armhf", "amd64", "aarch64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "host_network": true,
+  "map": ["config:rw"],
+  "schema": {
+    "domain": "str",
+    "subdomain": "str",
+    "port" : "int"
+  },
+  "options": {
+    "domain": "",
+    "subdomain": "",
+    "port": ""
+  }
+}
