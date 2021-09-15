@@ -40,12 +40,12 @@ function copy-backup-to-remote {
 
     cd /backup/
     if [[ -z $ZIP_PASSWORD  ]]; then
-      echo "Copying ${NOMBRE}.tar to ${REMOTE_DIRECTORY} on ${SSH_HOST} using SCP"
-      scp -F "${HOME}/.ssh/config" "${NOMBRE}.tar" remote:"${REMOTE_DIRECTORY}"
+      echo "Copiando ${respaldo}.tar a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
+      scp -F "${HOME}/.ssh/config" "${respaldo}.tar" remote:"${REMOTE_DIRECTORY}"
     else
-      echo "Copying password-protected ${NOMBRE}.zip to ${REMOTE_DIRECTORY} on ${SSH_HOST} using SCP"
-      zip -P "$ZIP_PASSWORD" "${NOMBRE}.zip" "${NOMBRE}".tar
-      scp -F "${HOME}/.ssh/config" "${NOMBRE}.zip" remote:"${REMOTE_DIRECTORY}" && rm "${NOMBRE}.zip"
+      echo "Copiando respaldo protegido con password ${respaldo}.zip a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
+      zip -P "$ZIP_PASSWORD" "${respaldo}.zip" "${respaldo}".tar
+      scp -F "${HOME}/.ssh/config" "${respaldo}.zip" remote:"${REMOTE_DIRECTORY}" && rm "${respaldo}.zip"
     fi
 
 }
@@ -57,8 +57,8 @@ function delete-local-backup {
     if [[ ${KEEP_LOCAL_BACKUP} == "all" ]]; then
         :
     elif [[ -z ${KEEP_LOCAL_BACKUP} ]]; then
-        echo "Deleting local backup: ${NOMBRE}"
-        hassio snapshots remove -name "${NOMBRE}"
+        echo "Eliminando respaldo local: ${respaldo}"
+        hassio snapshots remove -name "${respaldo}"
     else
 
         last_date_to_keep=$(hassio snapshots list | jq .data.snapshots[].date | sort -r | \
@@ -66,8 +66,8 @@ function delete-local-backup {
 
         hassio snapshots list | jq -c .data.snapshots[] | while read backup; do
             if [[ $(echo ${backup} | jq .date | xargs date -D "%Y-%m-%dT%T" +%s --date ) -lt ${last_date_to_keep} ]]; then
-                echo "Deleting local backup: $(echo ${backup} | jq -r .NOMBRE)"
-                hassio snapshots remove -name "$(echo ${backup} | jq -r .NOMBRE)"
+                echo "Eliminando respaldo local: $(echo ${backup} | jq -r .slug)"
+                hassio snapshots remove -name "$(echo ${backup} | jq -r .slug)"
             fi
         done
 
@@ -75,10 +75,12 @@ function delete-local-backup {
 }
 
 function create-local-backup {
-    name="Automated backup $(date +'%Y-%m-%d %H:%M')"
-    echo "Creating local backup: \"${name}\""
-    NOMBRE=$(hassio snapshots new --options name="${name}" | jq --raw-output '.data.NOMBRE')
-    echo "Backup created: ${NOMBRE}"
+    name="Respaldo Automatico $(date +'%Y-%m-%d %H:%M')"
+    echo "Creando Respaldo Local: \"${name}\""
+    slug=$(hassio snapshots new --options name="${name}" | jq --raw-output '.data.slug')
+    echo "Respaldo Creado: ${slug}"
+    echo "Renombrando Respaldo"
+    respaldo=`mv ${slug} $NOMBRE_$(date +'%Y-%m-%d %H:%M')`
 }
 
 
