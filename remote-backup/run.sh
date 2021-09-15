@@ -40,6 +40,7 @@ function copy-backup-to-remote {
 
     cd /backup/
     if [[ -z $ZIP_PASSWORD  ]]; then
+      respaldo=`mv ${slug}.tar $NOMBRE_$(date +'%Y-%m-%d %H:%M').tar`
       echo "Copiando ${respaldo}.tar a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
       scp -F "${HOME}/.ssh/config" "${respaldo}.tar" remote:"${REMOTE_DIRECTORY}"
     else
@@ -77,10 +78,8 @@ function delete-local-backup {
 function create-local-backup {
     name="Respaldo Automatico $(date +'%Y-%m-%d %H:%M')"
     echo "Creando Respaldo Local: \"${name}\""
-    slug=$(hassio snapshots new --options name="${name}" | jq --raw-output '.data.slug')
+    slug=$(ha snapshots new --name="${name}" | jq --raw-output '.data.slug')
     echo "Respaldo Creado: ${slug}"
-    echo "Renombrando Respaldo"
-    respaldo=`mv ${slug} $NOMBRE_$(date +'%Y-%m-%d %H:%M')`
 }
 
 
