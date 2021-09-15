@@ -28,7 +28,7 @@ ARG BUILD_VERSION
 # Labels
 LABEL \
     io.hass.name="Respaldo Remoto" \
-    io.hass.description="Crea un respaldo (aka snapshot) de manera automatica del HA y lo envia a un servidor remoto utilizando `SCP`. Inspirado en el script original de `Nicolai Bjerre Pedersen <mr.bjerre@gmail.com>`. \
+    io.hass.description="Crea un respaldo (aka snapshot) de manera automatica del HA y lo envia a un servidor remoto utilizando `SCP`. Inspirado en el script original de `Nicolai Bjerre Pedersen <mr.bjerre@gmail.com>`." \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
