@@ -43,8 +43,8 @@ function copy-backup-to-remote {
     ls -Altrh
     sleep 4s
     if [[ -z $ZIP_PASSWORD  ]]; then
-      respaldo=`mv /backup/"${slug}".tar /backup/$NOMBRE.tar`
-      echo "${respaldo}"
+      mv /backup/"${slug}".tar /backup/$NOMBRE.tar
+      respaldo=$(ls -tr | tail -1)
       ls -Altrh
       sleep 3s
       echo "Copiando $respaldo a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
