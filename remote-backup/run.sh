@@ -46,7 +46,7 @@ function copy-backup-to-remote {
       respaldo=`mv /backup/"${slug}".tar /backup/$NOMBRE.tar`
       ls -Altrh
       sleep 3s
-      echo "Copiando '${respaldo}' a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
+      echo "Copiando ${respaldo} a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
       scp -F "${HOME}/.ssh/config" "${respaldo}" remote:"${REMOTE_DIRECTORY}"
     else
       echo "Copiando respaldo protegido con password ${respaldo}.zip a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
