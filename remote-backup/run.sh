@@ -40,7 +40,7 @@ function copy-backup-to-remote {
 
     cd /backup/
     if [[ -z $ZIP_PASSWORD  ]]; then
-      fecha=$(date +'%Y-%m-%d')
+      fecha="$(date +'%Y-%m-%d')"
       echo ${fecha}
       mv /backup/"${slug}".tar /backup/"${fecha}_$NOMBRE.tar
       respaldo=$(ls -tr | tail -1)
