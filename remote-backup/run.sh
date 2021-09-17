@@ -42,7 +42,7 @@ function copy-backup-to-remote {
     if [[ -z $ZIP_PASSWORD  ]]; then
       fecha="$(date +'%Y-%m-%d')"
       echo ${fecha}
-      mv /backup/"${slug}".tar /backup/"${fecha}_$NOMBRE.tar
+      mv /backup/"${slug}".tar /backup/"${fecha}"_$NOMBRE.tar
       respaldo=$(ls -tr | tail -1)
       echo "Copiando $fecha_$respaldo a ${REMOTE_DIRECTORY} en ${SSH_HOST} por SCP"
       scp -F "${HOME}/.ssh/config" "${fecha}_${respaldo}" remote:"${REMOTE_DIRECTORY}"
