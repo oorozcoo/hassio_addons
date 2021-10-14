@@ -17,7 +17,7 @@ KEEP_LOCAL_BACKUP=$(jq --raw-output '.keep_local_backup' $CONFIG_PATH)
 SSH_ID="${HOME}/.ssh/id"
 
 function add-ssh-key {
-    echo "Adding SSH key"
+    echo "Agregando llave SSH"
     mkdir -p ~/.ssh
     (
         echo "Host remote"
