@@ -58,22 +58,22 @@ function copy-backup-to-remote {
 
 function delete-local-backup {
 
-    hassio snapshots reload
+    ha snapshots reload
 
     if [[ ${KEEP_LOCAL_BACKUP} == "all" ]]; then
         :
     elif [[ -z ${KEEP_LOCAL_BACKUP} ]]; then
         echo "Eliminando respaldo local: ${respaldo}"
-        hassio snapshots remove -name "${respaldo}"
+        ha snapshots remove -name "${respaldo}"
     else
 
-        last_date_to_keep=$(hassio snapshots list | jq .data.snapshots[].date | sort -r | \
+        last_date_to_keep=$(ha snapshots list | jq .data.snapshots[].date | sort -r | \
             head -n "${KEEP_LOCAL_BACKUP}" | tail -n 1 | xargs date -D "%Y-%m-%dT%T" +%s --date )
 
-        hassio snapshots list | jq -c .data.snapshots[] | while read backup; do
+        ha snapshots list | jq -c .data.snapshots[] | while read backup; do
             if [[ $(echo ${backup} | jq .date | xargs date -D "%Y-%m-%dT%T" +%s --date ) -lt ${last_date_to_keep} ]]; then
                 echo "Eliminando respaldo local: $(echo ${backup} | jq -r .slug)"
-                hassio snapshots remove -name "$(echo ${backup} | jq -r .slug)"
+                ha snapshots remove -name "$(echo ${backup} | jq -r .slug)"
             fi
         done
 
@@ -83,7 +83,7 @@ function delete-local-backup {
 function create-local-backup {
     name="Respaldo Automatico $(date +'%Y-%m-%d %H:%M')"
     echo "Creando Respaldo Local: \"${name}\""
-    slug=$(hassio snapshots new --options name="${name}" | jq --raw-output '.data.slug')
+    slug=$(ha snapshots new --options name="${name}" | jq --raw-output '.data.slug')
     echo "Respaldo Creado: ${slug}"
 }
 
