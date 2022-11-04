@@ -9,7 +9,7 @@
   "boot": "auto",
   "host_network": true,
   "map": ["config:rw"],
-  "init":"false",
+  "init": false,
   "schema": {
     "domain": "str",
     "subdomain": "str",
